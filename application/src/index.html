@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Name Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            flex: 1;
+            padding: 10px;
+        }
+        .search-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Name Finder</h1>
+    <div class="search-container">
+        <input type="text" id="search" class="search-box" placeholder="s1r1us">
+        <button id="searchBtn" class="search-button">Search</button>
+    </div>
+    <div id="results" class="results"></div>
+
+    <script>
+        const searchInput = document.getElementById('search');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultsDiv = document.getElementById('results');
+
+        async function performSearch() {
+            const name = searchInput.value.trim();
+            resultsDiv.textContent = 'Searching...';
+            
+            try {
+                const response = await fetch('/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name })
+                });
+                
+                const data = await response.json();
+                
+                if (data.found) {
+                    resultsDiv.textContent = `Found matching entries`;
+                } else {
+                    resultsDiv.textContent = `No matches found`;
+                }
+            } catch (error) {
+                resultsDiv.textContent = 'Search failed';
+            }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html> 
