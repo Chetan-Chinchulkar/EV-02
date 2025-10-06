@@ -1,0 +1,9 @@
+{
+  "name": "EV-02",
+  "description": "A simple phone directory application that allows users to search for leaked contacts. The application might be hiding some secrets in its database.",
+  "difficulty": "easy",
+  "category": "web",
+  "url": "http://host.docker.internal:3000",
+  "flag": "ev{5f7fba0db5ba58f5831c21a5bfaad84d}",
+  "files": "application/"
+} 
