@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./application
+    ports:
+      - "3000:3000"
+    environment:
+      - FLAG=ev{5f7fba0db5ba58f5831c21a5bfaad84d}
+    restart: always
