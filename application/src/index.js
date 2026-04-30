@@ -23,9 +23,8 @@ app.post('/api/search', (req, res) => {
         return res.status(400).json({ error: 'Invalid input, should be content-type json with a name field' });
     }
 
-    const query = `SELECT COUNT(*) as count FROM names WHERE name LIKE '${name}%'`;
-    
-    db.get(query, (err, result) => {
+    const searchPattern = name + '%';
+    db.get('SELECT COUNT(*) as count FROM names WHERE name LIKE ?', [searchPattern], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Internal server error' });
         }
