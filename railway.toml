@@ -1,6 +1,5 @@
 [build]
-dockerfilePath = "application/Dockerfile"
-dockerContextPath = "application"
+dockerfilePath = "Dockerfile"
 
 [deploy]
 startCommand = "node index.js"
