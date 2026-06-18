@@ -25,7 +25,7 @@ app.post('/api/search', (req, res) => {
 
     const query = `SELECT COUNT(*) as count FROM names WHERE name LIKE '${name}%'`;
     
-    db.get(query, (err, result) => {
+    db.get('SELECT COUNT(*) as count FROM names WHERE name LIKE ?', [req.body.name + '%'], (err, result) => { 
         if (err) {
             return res.status(500).json({ error: 'Internal server error' });
         }
